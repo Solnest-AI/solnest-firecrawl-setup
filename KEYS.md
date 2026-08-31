@@ -14,11 +14,11 @@ Anything you type into the chat is saved in the conversation forever. Put your k
 2. **Paste each key after the `=` sign.** No quotes, no spaces:
 
    ```
-   EXA_API_KEY=abc123xyz
+   FIRECRAWL_API_KEY=abc123xyz
    ```
    not
    ```
-   EXA_API_KEY = "abc123xyz"
+   FIRECRAWL_API_KEY = "abc123xyz"
    ```
 
 3. **Save the file.**

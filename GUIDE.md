@@ -2,7 +2,7 @@
 
 **You are Claude. The user dragged this in and asked you to set it up. Do it FOR them, one step at a time, in plain language. Never paste a raw error at them.**
 
-**The golden rule: the key they paste is THEIRS. Put it in the command below and nowhere else.** Never write their key into a file in a folder, never commit it, never echo it back to them in full. If they ask where it lives: it's in their own `~/.claude.json`, on their machine only.
+**The golden rule: the key is THEIRS and it must never land in this chat.** They paste it into the `.env` file in this folder. The setup script reads that file in the shell and hands it to Claude Code, so you never see it. Don't `cat` the `.env`, don't echo the key back, don't commit it. If they ask where it ends up: their own `~/.claude.json`, on their machine only.
 
 ---
 
@@ -22,19 +22,38 @@
 **Cost:** Free tier included. Your key starts with `fc-`.
 
 1. Get a key at **https://www.firecrawl.dev/app/api-keys** — sign in, create an API key, copy it. The key starts with `fc-`.
-2. Add the server to Claude Code:
+2. **Have them put the key in `.env`, not in this chat.** Say: *"Open the file called `.env` in this folder, paste your key after `FIRECRAWL_API_KEY=`, save it, and tell me you're done. Don't paste it here."* If there's only a `.env.template`, tell them to copy it to `.env` first. `KEYS.md` spells the same thing out for them.
+3. When they say they're done, run the setup script. It reads `.env` **in the shell**, so the key goes straight from the file into Claude Code and never enters this conversation:
 
 ```bash
-claude mcp add firecrawl --scope user \
-  --env FIRECRAWL_API_KEY=PASTE_YOUR_KEY_HERE \
-  -- npx -y firecrawl-mcp
+# macOS / Linux
+bash setup-keys.sh
 ```
 
-   `--scope user` makes it available in every project, not just one folder.
+```powershell
+# Windows
+powershell -ExecutionPolicy Bypass -File setup-keys.ps1
+```
 
-3. Confirm it registered: `claude mcp list` should show **firecrawl**.
+   It prints `✅ firecrawl connected` when it worked, and only ✅ / ⬜ per key otherwise. Never the key itself.
+
+4. Confirm it registered: `claude mcp list` should show **firecrawl**.
+
+> **Manual fallback, only if the script can't run at all.** Don't run this yourself with their key in it; that puts the key in the transcript. Give them the line and have them run it in their own terminal, swapping in their key:
+>
+> ```bash
+> claude mcp add firecrawl --scope user \
+>   --env FIRECRAWL_API_KEY=PASTE_YOUR_KEY_HERE \
+>   -- npx -y firecrawl-mcp
+> ```
+>
+> `--scope user` makes it available in every project, not just one folder.
 
 ---
+
+> ⚠️ **If you also ran `solnest-connectors-setup`, pick one.** That repo installs Firecrawl as a
+> remote HTTP server under the same name (`firecrawl`), so whichever you run last silently replaces
+> the other one. Run `claude mcp remove firecrawl --scope user` first if you want to switch.
 
 ## Last step — restart
 

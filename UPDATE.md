@@ -18,7 +18,9 @@ No `git`? Download `https://github.com/Solnest-AI/solnest-firecrawl-setup/archiv
 
 ## Step 3 — Replace their copy of the guide
 
-Overwrite `GUIDE.md`, `README.md`, and `VERSION`. That's it.
+Overwrite `GUIDE.md`, `README.md`, `START-HERE.md`, `KEYS.md`, `.env.template`, `setup-keys.sh`, `setup-keys.ps1`, `CHANGELOG.md`, and `VERSION`.
+
+**Leave their `.env` alone.** That's the file holding their key. Only `.env.template` gets replaced.
 
 **Do not re-run the setup.** If their MCP servers already work, a newer guide changes nothing for them. Run `claude mcp list` to check — if the servers are there, they're done.
 

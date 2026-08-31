@@ -4,7 +4,7 @@
 
 Do the work FOR them. Never paste a raw error at them.
 
-**Critical:** the API key the user gives you is a secret. Use it in the `claude mcp add` command and nowhere else. Never write it into a file, never commit it, never repeat it back in full.
+**Critical:** the API key is a secret and they should never hand it to you at all. It goes into the `.env` file in this folder, and `setup-keys.sh` picks it up from there. Never write it into any other file, never commit it, never repeat it back.
 
 Confirm the test search actually returns a result before you tell them it's finished.
 
@@ -20,7 +20,7 @@ Anything typed into this chat is saved in the conversation transcript forever. A
 
 **Instead, do this:**
 
-1. Tell the user: *"Open the file called `.env` in this folder, paste your keys in, and save it. Then tell me you're done — don't paste anything into this chat."*
+1. Tell the user: *"Open the file called `.env` in this folder, paste your keys in, and save it. Then tell me you're done. Don't paste anything into this chat."*
 2. Point them at **`KEYS.md`** in this folder — it lists exactly which keys they need and where to get each one.
 3. When they say they're done, run the setup script. It reads `.env` **in the shell**, so the key goes straight from the file to where it belongs. You never see it:
 
